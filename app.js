@@ -13,6 +13,8 @@ app.use(express.static('public'));
 require("./routes/rusuarios.js")(app, swig);
 require("./routes/rcanciones.js")(app, swig);
 
+var gestorBD = require("./modules/gestorBD.js");
+gestorBD.init(app,mongo);
 // Variables
 app.set('port', 8081);
 app.set('db','mongodb://admin:admin@tiendamusica-shard-00-00-' +
@@ -20,8 +22,8 @@ app.set('db','mongodb://admin:admin@tiendamusica-shard-00-00-' +
     'tiendamusica-shard-00-02-el9u7.mongodb.net:27017/test?ssl=true&replicaSet=tiendamusica-' +
     'shard-0&authSource=admin&retryWrites=true');
 //Rutas/controladores por lógica
-require("./routes/rusuarios.js")(app, swig); // (app, param1, param2, etc.)
-require("./routes/rcanciones.js")(app, swig, mongo); // (app, param1, param2, etc.)
+require("./routes/rusuarios.js")(app, swig, gestorBD); // (app, param1, param2, etc.)
+require("./routes/rcanciones.js")(app, swig, gestorBD); // (app, param1, param2, etc.)
 
 // lanzar el servidor
 app.listen(app.get('port'), function() {
