@@ -43,7 +43,7 @@ module.exports = function(app, swig, gestorBD) {
     });
     app.post("/cancion", function(req, res) {
         if ( req.session.usuario == null){
-            res.redirect("/tienda");
+            res.redirect("/publicaciones");
             return;
         }
         var cancion = {
@@ -141,7 +141,7 @@ module.exports = function(app, swig, gestorBD) {
                     if( result == null){
                         res.send("Error en la modificación");
                     } else {
-                        res.send("Modificado");
+                        res.redirect("/publicaciones");
                     }
                 });
             }
