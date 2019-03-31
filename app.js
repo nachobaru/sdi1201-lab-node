@@ -43,6 +43,9 @@ routerUsuarioSession.use(function(req, res, next) {
 //Aplicar routerUsuarioSession
 app.use("/canciones/agregar",routerUsuarioSession);
 app.use("/publicaciones",routerUsuarioSession);
+app.use("/cancion/comprar",routerUsuarioSession);
+app.use("/compras",routerUsuarioSession);
+
 
 //routerUsuarioAutor
 var routerUsuarioAutor = express.Router();
@@ -93,7 +96,19 @@ require("./routes/rusuarios.js")(app, swig, gestorBD); // (app, param1, param2, 
 require("./routes/rcanciones.js")(app, swig, gestorBD); // (app, param1, param2, etc.)
 
 app.get('/', function (req, res) {
-    res.redirect('/tienda');
+    var criterio = {
+        usuario : req.session.usuario,
+        cancionId : mongo.ObjectID(idCancion)
+    };
+
+    gestorBD.obtenerCompras(criterio ,function(compras){
+        if (compras != null && compras.length > 0 ){
+            next();
+        } else {
+            res.redirect("/tienda");
+        }
+    });
+
 })
 
 // lanzar el servidor
