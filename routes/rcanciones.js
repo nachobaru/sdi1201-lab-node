@@ -102,6 +102,7 @@ module.exports = function(app, swig, gestorBD) {
                     if ( i > 0 && i <= ultimaPg){
                         paginas.push(i);
                     }
+
                 }
                 var respuesta = swig.renderFile('views/btienda.html',
                     {
