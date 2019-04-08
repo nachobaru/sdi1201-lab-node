@@ -42,6 +42,18 @@
   $( "#contenedor-principal" ).load( "widget-login.html");
   function widgetCanciones(){
     $( "#contenedor-principal" ).load( "widget-canciones.html");
+    if ( Cookies.get('token') != null ){
+      token = Cookies.get('token');
+      var url = new URL(window.location.href);
+      var w = url.searchParams.get("w");
+      if ( w == "login"){
+        $( "#contenedor-principal" ).load("widget-login.html");
+      }
+      if ( w == "canciones"){
+        $( "#contenedor-principal" ).load("widget-canciones.html");
+      }
+    }
+
   }
 
   function eliminar( _id ) {
