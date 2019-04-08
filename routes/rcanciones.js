@@ -260,6 +260,7 @@ module.exports = function(app, swig, gestorBD) {
                     canciones[0].usd = cambioUSD * canciones[0].precio;
                     var respuesta = swig.renderFile('views/bcancion.html',
                         {
+
                             cancion: canciones[0]
                         });
                     res.send(respuesta);
